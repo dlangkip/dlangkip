@@ -21,7 +21,7 @@ This portfolio website is a representation of my work, skills, and experiences. 
 To access and explore the portfolio website, simply open your preferred web browser and enter the following URL:
 
 ```
-[Insert URL of the website]
+https://dlangkip.github.io/dlangkip/
 ```
 
 ## Usage
