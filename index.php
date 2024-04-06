@@ -1,3 +1,36 @@
+<?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/SMTP.php';
+
+if(isset($_POST['send'])){
+    $name = htmlentities($_POST['name']);
+    $email = htmlentities($_POST['email']);
+    $subject = htmlentities($_POST['subject']);
+    $message = htmlentities($_POST['message']);
+
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'amoskiprotich1130@gmail.com';
+    $mail->Password = 'jbsiqaxldpxonsgf';
+    $mail->Port = 465;
+    $mail->SMTPSecure = 'ssl';
+    $mail->isHTML(true);
+    $mail->setFrom($email, $name);
+    $mail->addAddress('amoskiprotich1130@gmail.com');
+    $mail->Subject = ("$email ($subject)");
+    $mail->Body = $message;
+    $mail->send();
+
+    header("Location: ./index.php?=email_sent!");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,7 +99,7 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="hero-container" data-aos="fade-in">
-      <h1>I'm Amos Kiprotich</h1>
+      <h1>I am Amos Kiprotich</h1>
       <p><span class="typed" data-typed-items="A Designer, A Developer, A Freelancer, A Photographer"></span></p>
     </div>
   </section><!-- End Hero -->
@@ -569,7 +602,7 @@
       </div>
     </section><!-- End Testimonials Section -->
 
-     -->
+     
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
@@ -608,41 +641,28 @@
             </div>
 
           </div>
-
+           
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form action="http://formspree.io/you@email.com" method="post" role="form" class="php-email-form"> 
-              <!-- <form action="http://formspree.io/you@email.com"><input type="email" name="_replyto"><textarea   name="body"></textarea><input type="submit" value="Send"></form> -->
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="name">Your Name</label>
-                  <input type="text" name="name" class="form-control" id="name" required>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email" required>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="name">Subject</label>
-                <input type="text" class="form-control" name="subject" id="subject" required>
-              </div>
-              <div class="form-group">
-                <label for="name">Message</label>
-                <textarea class="form-control" name="message" rows="10" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
+          <form class="display-grid row-gap-1-rem" method="post">
+          <div class="form-group col-md-6">
+            <input class="form-control" name="name" type="text" placeholder="Name" size= "80" autocomplete="off" required /><br>
+          </div>
+          <div class="form-group col-md-6">
+            <input class="form-control" name="email" type="email" placeholder="Email" autocomplete="off" required /><br>
+          </div>
+          <div class="form-group">
+            <input class="form-control" name="subject" type="text" placeholder="Subject" autocomplete="off" required /><br>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" name="message" placeholder="Message..." required></textarea><br>
+          </div>
+            <button type="submit" name="send">
+            Send <i class="fa-solid fa-paper-plane color-white margin-left-1-rem"></i>
+            </button>
+
+        </form>
           </div>
 
-        </div>
-
-      </div>
-    </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
 
