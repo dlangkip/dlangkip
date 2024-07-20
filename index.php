@@ -1,10 +1,16 @@
 <?php
+session_start();
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require './PHPMailer/src/Exception.php';
 require './PHPMailer/src/PHPMailer.php';
 require './PHPMailer/src/SMTP.php';
+
+ob_start();
+include 'button.html';
+ob_end_flush();
 
 if(isset($_POST['send'])){
     $name = htmlentities($_POST['name']);
@@ -27,8 +33,7 @@ if(isset($_POST['send'])){
     $mail->Body = $message;
     $mail->send();
 
-    header("Location: ./index.php?=email_sent!");
-}
+    }
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +43,7 @@ if(isset($_POST['send'])){
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dlang</title>
+  <title>Dlang | Portfolio</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -261,9 +266,9 @@ if(isset($_POST['send'])){
             </div>
 
             <div class="progress">
-              <span class="skill">Photoshop <i class="val">55%</i></span>
+              <span class="skill">Python <i class="val">65%</i></span>
               <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
 
@@ -316,7 +321,7 @@ if(isset($_POST['send'])){
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <h3 class="resume-title">Professional Experience</h3>
             <div class="resume-item">
-              <h4>Full Stack Web Deveveloper</h4>
+              <h4>Full Stack Web Developer</h4>
               <h5>2023 - Present</h5>
               <p><em>Tudour, Mombasa, KE </em></p>
               <ul>
@@ -336,9 +341,41 @@ if(isset($_POST['send'])){
                   Implemented best practices in web development, including version control with Git, responsive design principles, 
                   and optimization techniques for performance and SEO.
                 </li>
+                
             </div>
             
           </div>
+        <style>
+        
+        .button-91 {
+          color: #fff;
+          padding: 15px 25px;
+          background-color: #38D2D2;
+          background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
+          box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
+          border-radius: 14px;
+          font-weight: bold;
+          font-size: 16px;
+        
+          border: 0;
+        
+          user-select: none;
+          -webkit-user-select: none;
+          touch-action: manipulation;
+        
+          cursor: pointer;
+        }
+        
+        </style>
+
+
+
+        <div style="display: flex; justify-content: flex-end;">
+                <a href="/assets/documents/Kiprotich's Resume.pdf" download="Resume" style="text-decoration: none;">
+                <button class="button-91" role="button">Download Resume</button>
+                </a>
+            </div>
+   
         </div>
 
       </div>
@@ -369,20 +406,20 @@ if(isset($_POST['send'])){
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-app">
             <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
+              <img src="assets/img/portfolio/portfolio-1.png" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                <a href="assets/img/portfolio/portfolio-1.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="" title="More Details"><i class="bx bx-link"></i></a>
               </div>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-web">
             <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
+              <img src="assets/img/portfolio/portfolio-2.png" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                <a href="assets/img/portfolio/portfolio-2.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
+                <a href="https://dlang.000webhostapp.com/" title="More Details"><i class="bx bx-link"></i></a>
               </div>
             </div>
           </div>
@@ -409,10 +446,10 @@ if(isset($_POST['send'])){
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-web">
             <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="">
+              <img src="assets/img/portfolio/portfolio-5.png" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                <a href="assets/img/portfolio/portfolio-5.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i class="bx bx-plus"></i></a>
+                <a href="https://dlangkip.github.io/hotel-resort/" title="More Details"><i class="bx bx-link"></i></a>
               </div>
             </div>
           </div>
@@ -449,10 +486,10 @@ if(isset($_POST['send'])){
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-web">
             <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt="">
+              <img src="assets/img/portfolio/portfolio-9.png" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                <a href="assets/img/portfolio/portfolio-9.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
+                <a href="https://kip-amo.github.io/orphan-web/" title="More Details"><i class="bx bx-link"></i></a>
               </div>
             </div>
           </div>
@@ -643,24 +680,33 @@ if(isset($_POST['send'])){
           </div>
            
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-          <form class="display-grid row-gap-1-rem" method="post">
-          <div class="form-group col-md-6">
-            <input class="form-control" name="name" type="text" placeholder="Name" size= "80" autocomplete="off" required /><br>
-          </div>
-          <div class="form-group col-md-6">
-            <input class="form-control" name="email" type="email" placeholder="Email" autocomplete="off" required /><br>
-          </div>
-          <div class="form-group">
-            <input class="form-control" name="subject" type="text" placeholder="Subject" autocomplete="off" required /><br>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" name="message" placeholder="Message..." required></textarea><br>
-          </div>
-            <button type="submit" name="send">
-            Send <i class="fa-solid fa-paper-plane color-white margin-left-1-rem"></i>
-            </button>
-
-        </form>
+            <form id="contactForm" class="display-grid row-gap-1-rem" method="post" onsubmit="return validateAndRedirect()">
+                <div class="form-group col-md-6">
+                    <input class="form-control" name="name" type="text" placeholder="Name" size="80" autocomplete="off" required /><br>
+                </div>
+                <div class="form-group col-md-6">
+                    <input class="form-control" name="email" type="email" placeholder="Email" autocomplete="off" required /><br>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="subject" type="text" placeholder="Subject" autocomplete="off" required /><br>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" name="message" placeholder="Message..." required></textarea><br>
+                </div>
+                <button class="button-91" type="submit" name="send">Send</button>
+            </form>
+            
+            <script>
+            function validateAndRedirect() {
+                var form = document.getElementById('contactForm');
+                if (form.checkValidity()) {
+                    // If all fields are valid, redirect to thankyou.html
+                    window.location.href = 'thankyou.html';
+                    return false; // Prevent form submission
+                }
+                return true; // Allow form submission if validation fails
+            }
+            </script>
           </div>
 
 
@@ -670,7 +716,7 @@ if(isset($_POST['send'])){
   <footer id="footer">
     <div class="container">
       <div class="credits">
-        Designed by <a href="https://dlangkip.github.io/dlangkip/">Dlang</a>
+        Designed by <a href="https://github.com/dlangkip">Dlang</a>
       </div>
     </div>
   </footer><!-- End  Footer -->
@@ -690,6 +736,13 @@ if(isset($_POST['send'])){
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    var disclaimer =  document.querySelector("img[alt='www.000webhost.com']");
+     if(disclaimer){
+         disclaimer.remove();
+     }  
+   });</script>
 
 </body>
 
