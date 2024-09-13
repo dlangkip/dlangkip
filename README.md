@@ -1,4 +1,4 @@
-🌍 Data-Driven Developer | Python Enthusiast | Innovator
+🌍 Data-Driven Developer | Python Enthusiast
 
 👋 Hi there! I'm a software developer with a passion for leveraging data and Python to create impactful, user-centric applications. Whether it's building intuitive mobile apps with Kivy or developing dynamic web platforms, I thrive on turning data into actionable insights and seamless experiences.
 
