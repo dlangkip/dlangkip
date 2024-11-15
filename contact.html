@@ -112,7 +112,7 @@
             <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="400">
               <i class="icon bi bi-envelope flex-shrink-0"></i>
               <div>
-                <h3>Email Us</h3>
+                <h3>Send Email</h3>
                 <p>amoskiprotich1130@gmail.com</p>
               </div>
             </div>
@@ -136,34 +136,66 @@
 
         </div>
 
-<form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="php-email-form" data-aos="fade-up" data-aos-delay="600">
-  <input type="hidden" name="form-name" value="contact">
-  
-  <!-- Honeypot field for spam protection (hidden) -->
-  <p style="display: none;">
-    <label>Don’t fill this out if you’re human: <input name="bot-field"></label>
-  </p>
-  
-  <div class="row gy-4">
-    <div class="col-md-6">
-      <input type="text" name="name" class="form-control" placeholder="Your Name" id="name" required>
-    </div>
-    <div class="col-md-6">
-      <input type="email" class="form-control" name="email" placeholder="Your Email" id="email" required>
-    </div>
-    <div class="col-md-12">
-      <input type="text" class="form-control" name="subject" placeholder="Subject" id="subject" required>
-    </div>
-    <div class="col-md-12">
-      <textarea class="form-control" name="message" rows="6" placeholder="Message" id="message" required></textarea>
-    </div>
-    <div class="col-md-12 text-center">
-       <button type="submit">Send</button>
-    </div>
-  </div>
-</form>
-
-
+        <form id="contactForm" method="post" action="forms/contact.php" class="php-email-form display-grid row-gap-1-rem">
+          <div class="row gy-4">
+              <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" id="name" required>
+              </div>
+              <div class="col-md-6">
+                  <input type="email" name="email" class="form-control" placeholder="Your Email" id="email" required>
+              </div>
+              <div class="col-md-12">
+                  <input type="text" name="subject" class="form-control" placeholder="Subject" id="subject" required>
+              </div>
+              <div class="col-md-12">
+                  <textarea name="message" class="form-control" rows="6" placeholder="Message" id="message" required></textarea>
+              </div>
+              <div class="col-md-12 text-center">
+                  <button type="submit">Send</button>
+              </div>
+              <!-- Loading and sent messages -->
+              <div class="loading">Loading...</div>
+              <div class="sent-message">Your message has been sent. Thank you!</div>
+          </div>
+      </form>
+            
+      <script>
+      document.getElementById('contactForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+      
+          // Show the loading message
+          document.querySelector('.loading').style.display = 'block';
+      
+          // Gather form data
+          const formData = new FormData(this);
+      
+          // Send AJAX request to contact.php
+          fetch('forms/contact.php', {
+              method: 'POST',
+              body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+              document.querySelector('.loading').style.display = 'none';
+      
+              if (data.status === 'success') {
+                  document.querySelector('.sent-message').style.display = 'block';
+      
+                  // Reload the form or page after a short delay
+                  setTimeout(function() {
+                      window.location.reload();
+                  }, 2000);
+              } else {
+                  alert(data.message); // Display error message
+              }
+          })
+          .catch(error => {
+              document.querySelector('.loading').style.display = 'none';
+              alert("There was an error submitting the form. Please try again.");
+          });
+      });
+      </script>
+      
 
     </section><!-- /Contact Section -->
 

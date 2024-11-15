@@ -53,13 +53,8 @@ $mail->Body = "
 
 try {
     $mail->send();
-    // Show a pop-up message and redirect to the index page after successful form submission
-    echo "<script>
-          alert('Your message has been sent. We\'ll get back to you shortly.');
-          window.location.href = 'index.html';
-          </script>";
-    exit;
+    echo json_encode(["status" => "success", "message" => "Your message has been sent."]);
 } catch (Exception $e) {
-    echo "Form submission failed: " . $e->getMessage();
-    exit;
+    echo json_encode(["status" => "error", "message" => "Failed to send message: " . $e->getMessage()]);
 }
+exit;
