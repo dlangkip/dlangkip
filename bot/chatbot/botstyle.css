@@ -263,7 +263,7 @@ header h2 {
 @media (max-width: 490px) {
   .chatbot-toggler {
     right: 20px;
-    bottom: 20px;
+    bottom: 100px;
   }
 
   .chatbot {
