@@ -103,12 +103,13 @@ $mail->Body = "
                     $subject
                 </div>
                 <div class='message'>
-                    <strong>Message Body</strong>
+                    <strong>Message Body</strong> <br>
                     $message
                 </div>
             </div>
             <div class='footer'>
-                © " . date('Y') . " | Kiprotich | This email was sent through your website contact form
+                    This email was sent through your website contact form <br>
+                © " . date('Y') . " Kiprotich All Rights Reserved
             </div>
         </div>
     </body>
