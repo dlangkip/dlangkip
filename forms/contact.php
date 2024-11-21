@@ -35,21 +35,86 @@ $mail->Body = "
     <html>
     <head>
         <style>
-            body {font-family: Arial, sans-serif; color: #333;}
-            h2 {color: #4CAF50;}
-            p {font-size: 16px;}
-            .footer {font-size: 12px; color: #999;}
+            body {
+                font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+                line-height: 1.6;
+                color: #37474f;
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #f5f5f5;
+            }
+            .container {
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+            }
+            .header {
+                background-color: #00796b;
+                color: white;
+                text-align: center;
+                padding: 18px;
+            }
+            .content {
+                padding: 25px;
+            }
+            .detail {
+                margin-bottom: 15px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid #e0e0e0;
+            }
+            .detail strong {
+                color: #00796b;
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 600;
+            }
+            .message {
+                background-color: #f1f8e9;
+                border-left: 5px solid #00796b;
+                padding: 15px;
+                margin-top: 10px;
+            }
+            .footer {
+                background-color: #e0e0e0;
+                text-align: center;
+                padding: 12px;
+                font-size: 11px;
+                color: #616161;
+            }
         </style>
     </head>
     <body>
-        <h2>Message from: $name</h2>
-        <p><strong>Email:</strong> $email</p>
-        <p><strong>Subject:</strong> $subject</p>
-        <p><strong>Message:</strong><br>$message</p>
-        <p class='footer'>This email was sent through your website contact form.</p>
+        <div class='container'>
+            <div class='header'>
+                <h2>Incoming Communication</h2>
+            </div>
+            <div class='content'>
+                <div class='detail'>
+                    <strong>From</strong>
+                    $name
+                </div>
+                <div class='detail'>
+                    <strong>Sender's Email</strong>
+                    $email
+                </div>
+                <div class='detail'>
+                    <strong>Topic</strong>
+                    $subject
+                </div>
+                <div class='message'>
+                    <strong>Message Body</strong>
+                    $message
+                </div>
+            </div>
+            <div class='footer'>
+                © " . date('Y') . " | Kiprotich | This email was sent through your website contact form
+            </div>
+        </div>
     </body>
     </html>
 ";
+
 
 try {
     $mail->send();
