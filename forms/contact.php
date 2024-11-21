@@ -109,7 +109,7 @@ $mail->Body = "
             </div>
             <div class='footer'>
                     This email was sent through your website contact form <br>
-                © " . date('Y') . " Kiprotich All Rights Reserved
+                © " . date('Y') . " <strong>Kiprotich</strong> All Rights Reserved
             </div>
         </div>
     </body>
