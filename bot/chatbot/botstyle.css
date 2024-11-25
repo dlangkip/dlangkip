@@ -494,7 +494,7 @@ header h2 {
 .chatbox .incoming span {
   width: 32px;
   height: 32px;
-  color: #fff;
+  color: #0bbb05;
   cursor: default;
   text-align: center;
   line-height: 32px;
@@ -532,6 +532,12 @@ header h2 {
   background: #f8d7da;
 }
 
+.chatbox .chat.incoming .fas.fa-robot {
+  color: #054172; 
+  font-size: 24px; 
+}
+
+
 .chatbot .chat-input {
   display: flex;
   gap: 5px;
@@ -544,17 +550,19 @@ header h2 {
 }
 
 .chat-input textarea {
-  height: 45px;
+  height: auto; /* Let it adjust automatically */
+  min-height: 45px; /* Ensure a visible default height */
+  max-height: 180px; /* Prevent it from growing too large */
   width: 100%;
   border: 1px solid #ddd;
   outline: none;
   resize: none;
-  max-height: 180px;
   padding: 12px 16px;
   font-size: 0.95rem;
   background: #fff;
   border-radius: 20px;
   transition: all 0.2s ease;
+  overflow-y: auto; /* Add a scrollbar if needed */
 }
 
 .chat-input textarea:focus {

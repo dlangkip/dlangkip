@@ -39,39 +39,45 @@ function openBotChat() {
 
 
 
-// Initialize Chatbot UI
 function initializeChatbot() {
-       
-        // Initialize chatbot elements
-        chatbox = document.querySelector(".chatbox");
-        chatInput = document.querySelector(".chat-input textarea");
-        sendChatBtn = document.querySelector("#send-btn");
-        const closeBtn = document.querySelector(".close-btn");
-        
-        // Set initial height
-        inputInitHeight = chatInput.scrollHeight;
-        
-        // Setup chat event listeners
-        setupChatEventListeners();
-        
-        // Setup close button
-        closeBtn.addEventListener("click", closeAllChats);
-    }
+    // Initialize chatbot elements
+    chatbox = document.querySelector(".chatbox");
+    chatInput = document.querySelector(".chat-input textarea");
+    sendChatBtn = document.querySelector("#send-btn");
+    const closeBtn = document.querySelector(".close-btn");
 
-    const createChatLi = (message, className) => {
-        const chatLi = document.createElement("li");
-        chatLi.classList.add("chat", `${className}`);
-        
-        // Check if the message is outgoing or incoming, and set the appropriate icon
-        let chatContent = className === "outgoing" 
-            ? `<p></p>` 
-            : `<i class="fas fa-robot"></i><p></p>`;  // Use Font Awesome Robot icon
-        
-        chatLi.innerHTML = chatContent;
-        chatLi.querySelector("p").textContent = message;
-        
-        return chatLi;
-    };
+    // Set initial height
+    inputInitHeight = chatInput.scrollHeight;
+
+    // Adjust the height dynamically as the user types
+    chatInput.addEventListener("input", () => {
+        chatInput.style.height = "auto"; // Reset height to calculate the new height
+        chatInput.style.height = `${chatInput.scrollHeight}px`; // Adjust to content
+    });
+
+    // Setup chat event listeners
+    setupChatEventListeners();
+
+    // Setup close button
+    closeBtn.addEventListener("click", closeAllChats);
+}
+
+const createChatLi = (message, className) => {
+    const chatLi = document.createElement("li");
+    chatLi.classList.add("chat", `${className}`);
+
+    // Check if the message is outgoing or incoming, and set the appropriate icon
+    let chatContent =
+        className === "outgoing"
+            ? `<p></p>`
+            : `<i class="fas fa-robot"></i><p></p>`; // Use Font Awesome Robot icon
+
+    chatLi.innerHTML = chatContent;
+    chatLi.querySelector("p").textContent = message;
+
+    return chatLi;
+};
+
     
 const generateResponse = async (chatElement) => {
     const messageElement = chatElement.querySelector("p");
