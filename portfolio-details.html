@@ -24,11 +24,9 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 
-  <!-- ChatBot -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+  <!-- Chat Files -->
   <link rel="stylesheet" href="bot/chatbot/botstyle.css" />
-  <script src="bot/chatbot/botscript.js" defer></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   
 
   <!-- Main CSS File -->
@@ -344,27 +342,77 @@
 
 </main>
 
-    <!-- Chatbot Code -->
-    <button class="chatbot-toggler">
-      <span class="material-symbols-rounded">mode_comment</span>
-      <span class="material-symbols-outlined">close</span>
-    </button>
-    <div class="chatbot">
-      <header>
-        <h2>Kiprotich Chatbot</h2>
-        <span class="close-btn material-symbols-outlined">close</span>
-      </header>
-      <ul class="chatbox">
-        <li class="chat incoming">
-          <span class="material-symbols-outlined">smart_toy</span>
-          <p>Hi there 👋<br />How can I help you today?</p>
-        </li>
-      </ul>
-      <div class="chat-input">
-        <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
-        <span id="send-btn" class="material-symbols-rounded">send</span>
+   <!-- Chatbot Code -->
+    <!-- Chat Toggle Button -->
+    <button class="chat-toggler">
+      <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="white">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.828z"/>
+      </svg>
+</button>
+
+<!-- Chat modal -->
+<div class="chat-modal">
+  <div class="modal-content">
+      <h2>Choose Chat Option</h2>
+      <div class="chat-options">
+          <button class="whatsapp-option">
+              <i class="fab fa-whatsapp"></i>
+              WhatsApp Chat
+          </button>
+          <button class="bot-option">
+              <i class="fas fa-robot"></i>
+              AI Assistant
+          </button>
       </div>
-    </div>
+  </div>
+</div>
+
+<!-- The chatbot will be dynamically inserted here when initialized -->
+
+<!-- WhatsApp Chat Widget -->
+<div class="whatsapp-chat">
+<div class="chat-header">
+  <div class="header-content">
+      <div class="profile-info">
+          <div class="profile-pic"></div>
+          <div class="profile-details">
+              <h2>Kiprotich</h2>
+              <span class="status">Typically replies within 1 hour</span>
+          </div>
+      </div>
+      <button class="close-chat" aria-label="Close chat">&times;</button>
+  </div>
+</div>
+<div class="chat-content">
+  <div class="welcome-message">
+      <p>Hello! 👋</p>
+      <p>How can I help you today?</p>
+  </div>
+  <textarea id="messageInput" class="chat-input" placeholder="Type your message here..." rows="4"></textarea>
+  <button class="whatsapp-link">
+      <span class="whatsapp-icon"></span>
+      Start Chat
+  </button>
+</div>
+</div>
+
+<!-- AI Chatbot Widget -->
+<div class="chatbot">
+  <header>
+      <h2>AI Assistant</h2>
+      <span class="close-btn fas fa-times"></span>
+  </header>
+  <ul class="chatbox">
+      <li class="chat incoming">
+          <i class="fas fa-robot"></i>
+          <p>Hi there 👋<br>How can I help you today?</p>
+      </li>
+  </ul>
+  <div class="chat-input">
+      <textarea placeholder="Enter a message..." required></textarea>
+      <span id="send-btn" class="fas fa-paper-plane"></span>
+  </div>
+</div>
 
   <footer id="footer" class="footer dark-background">
     <div class="container">
@@ -414,6 +462,7 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="bot/chatbot/botscript.js"></script>
 
 </body>
 

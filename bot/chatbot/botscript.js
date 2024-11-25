@@ -1,96 +1,228 @@
-const chatbotToggler = document.querySelector(".chatbot-toggler");
-const closeBtn = document.querySelector(".close-btn");
-const chatbox = document.querySelector(".chatbox");
-const chatInput = document.querySelector(".chat-input textarea");
-const sendChatBtn = document.querySelector(".chat-input span");
+// Modal Elements
+const chatToggler = document.querySelector(".chat-toggler");
+const chatModal = document.querySelector(".chat-modal");
+const whatsappOption = document.querySelector(".whatsapp-option");
+const botOption = document.querySelector(".bot-option");
+const whatsappChat = document.querySelector(".whatsapp-chat");
+const closeButtons = document.querySelectorAll(".close-chat");
 
-let userMessage = null; // Variable to store user's message
-const inputInitHeight = chatInput.scrollHeight;
+// Chatbot Elements
+let chatbox;
+let chatInput;
+let sendChatBtn;
+let userMessage = null;
+let inputInitHeight;
 
 // API configuration
-const API_KEY = "AIzaSyAZq21x018PledvppB7oPKtiIa1RvPNWVY"; // Your API key here
+const API_KEY = "AIzaSyAZq21x018PledvppB7oPKtiIa1RvPNWVY";
 const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${API_KEY}`;
 
-const createChatLi = (message, className) => {
-  // Create a chat <li> element with passed message and className
-  const chatLi = document.createElement("li");
-  chatLi.classList.add("chat", `${className}`);
-  let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
-  chatLi.innerHTML = chatContent;
-  chatLi.querySelector("p").textContent = message;
-  return chatLi; // return chat <li> element
-};
+// Toggle Functions
+function toggleModal() {
+    document.body.classList.toggle("show-modal");
+}
 
+function closeAllChats() {
+    document.body.classList.remove("show-modal", "show-whatsapp", "show-bot", "show-chatbot");
+}
+
+function openWhatsAppChat() {
+    closeAllChats();
+    document.body.classList.add("show-whatsapp");
+}
+
+function openBotChat() {
+    closeAllChats();
+    initializeChatbot();
+    document.body.classList.add("show-bot", "show-chatbot");
+}
+
+
+
+// Initialize Chatbot UI
+function initializeChatbot() {
+       
+        // Initialize chatbot elements
+        chatbox = document.querySelector(".chatbox");
+        chatInput = document.querySelector(".chat-input textarea");
+        sendChatBtn = document.querySelector("#send-btn");
+        const closeBtn = document.querySelector(".close-btn");
+        
+        // Set initial height
+        inputInitHeight = chatInput.scrollHeight;
+        
+        // Setup chat event listeners
+        setupChatEventListeners();
+        
+        // Setup close button
+        closeBtn.addEventListener("click", closeAllChats);
+    }
+
+    const createChatLi = (message, className) => {
+        const chatLi = document.createElement("li");
+        chatLi.classList.add("chat", `${className}`);
+        
+        // Check if the message is outgoing or incoming, and set the appropriate icon
+        let chatContent = className === "outgoing" 
+            ? `<p></p>` 
+            : `<i class="fas fa-robot"></i><p></p>`;  // Use Font Awesome Robot icon
+        
+        chatLi.innerHTML = chatContent;
+        chatLi.querySelector("p").textContent = message;
+        
+        return chatLi;
+    };
+    
 const generateResponse = async (chatElement) => {
-  const messageElement = chatElement.querySelector("p");
+    const messageElement = chatElement.querySelector("p");
 
-  // Define the properties and message for the API request
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      contents: [
-        {
-          role: "user",
-          parts: [{ text: userMessage }],
-        },
-      ],
-    }),
-  };
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            contents: [{
+                role: "user",
+                parts: [{ text: userMessage }],
+            }],
+        }),
+    };
 
-  // Send POST request to API, get response and set the reponse as paragraph text
-  try {
-    const response = await fetch(API_URL, requestOptions);
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error.message);
+    try {
+        const response = await fetch(API_URL, requestOptions);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error?.message || 'Something went wrong');
 
-    // Get the API response text and update the message element
-    messageElement.textContent = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
-  } catch (error) {
-    // Handle error
-    messageElement.classList.add("error");
-    messageElement.textContent = error.message;
-  } finally {
-    chatbox.scrollTo(0, chatbox.scrollHeight);
-  }
+        messageElement.textContent = data.candidates[0].content.parts[0].text
+            .replace(/\*\*(.*?)\*\*/g, "$1");
+    } catch (error) {
+        messageElement.classList.add("error");
+        messageElement.textContent = error.message;
+    } finally {
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+    }
 };
 
 const handleChat = () => {
-  userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
-  if (!userMessage) return;
+    userMessage = chatInput.value.trim();
+    if (!userMessage) return;
 
-  // Clear the input textarea and set its height to default
-  chatInput.value = "";
-  chatInput.style.height = `${inputInitHeight}px`;
+    // Clear the input textarea and set its height to default
+    chatInput.value = "";
+    chatInput.style.height = `${inputInitHeight}px`;
 
-  // Append the user's message to the chatbox
-  chatbox.appendChild(createChatLi(userMessage, "outgoing"));
-  chatbox.scrollTo(0, chatbox.scrollHeight);
-
-  setTimeout(() => {
-    // Display "Thinking..." message while waiting for the response
-    const incomingChatLi = createChatLi("Thinking...", "incoming");
-    chatbox.appendChild(incomingChatLi);
+    // Append the user's message to the chatbox
+    chatbox.appendChild(createChatLi(userMessage, "outgoing"));
     chatbox.scrollTo(0, chatbox.scrollHeight);
-    generateResponse(incomingChatLi);
-  }, 600);
+
+    setTimeout(() => {
+        // Display "Thinking..." message while waiting for the response
+        const incomingChatLi = createChatLi("Thinking...", "incoming");
+        chatbox.appendChild(incomingChatLi);
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+        generateResponse(incomingChatLi);
+    }, 600);
 };
 
-chatInput.addEventListener("input", () => {
-  // Adjust the height of the input textarea based on its content
-  chatInput.style.height = `${inputInitHeight}px`;
-  chatInput.style.height = `${chatInput.scrollHeight}px`;
+function setupChatEventListeners() {
+    chatInput.addEventListener("input", () => {
+        chatInput.style.height = `${inputInitHeight}px`;
+        chatInput.style.height = `${chatInput.scrollHeight}px`;
+    });
+
+    chatInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+            e.preventDefault();
+            handleChat();
+        }
+    });
+
+    sendChatBtn.addEventListener("click", handleChat);
+}
+
+// Event Listeners
+chatToggler?.addEventListener("click", toggleModal);
+whatsappOption?.addEventListener("click", openWhatsAppChat);
+botOption?.addEventListener("click", openBotChat);
+closeButtons?.forEach(button => {
+    button.addEventListener("click", closeAllChats);
 });
 
-chatInput.addEventListener("keydown", (e) => {
-  // If Enter key is pressed without Shift key and the window
-  // width is greater than 800px, handle the chat
-  if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
-    e.preventDefault();
-    handleChat();
-  }
+// Close modal when clicking outside
+chatModal?.addEventListener("click", (e) => {
+    if (e.target === chatModal) {
+        closeAllChats();
+    }
 });
 
-sendChatBtn.addEventListener("click", handleChat);
-closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
-chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+// Handle escape key
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        closeAllChats();
+    }
+});
+
+
+// WhatsApp configuration
+const WHATSAPP_NUMBER = "+254700760386";
+
+// WhatsApp Elements
+const messageInput = document.querySelector("#messageInput");
+const whatsappButton = document.querySelector(".whatsapp-link");
+
+function initializeWhatsAppChat() {
+    // Setup WhatsApp button
+    if (whatsappButton) {
+        whatsappButton.addEventListener("click", sendWhatsAppMessage);
+    }
+
+    // Setup auto-resize for textarea
+    if (messageInput) {
+        messageInput.addEventListener("input", autoResizeTextArea);
+    }
+}
+
+function autoResizeTextArea() {
+    messageInput.style.height = "auto";
+    messageInput.style.height = messageInput.scrollHeight + "px";
+}
+
+function sendWhatsAppMessage() {
+    // Get the message value entered by the user
+    const message = messageInput ? encodeURIComponent(messageInput.value.trim()) : '';
+
+    if (message) {
+        // Create WhatsApp URL with phone number and message
+        const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+        
+        // Open WhatsApp in new tab
+        window.open(whatsappURL, "_blank");
+        
+        // Reset input after sending the message (optional)
+        if (messageInput) {
+            messageInput.value = ''; // Reset message input
+            messageInput.style.height = "auto"; // Reset height
+        }
+        closeAllChats();
+    }
+}
+
+function openWhatsAppChat() {
+    closeAllChats();
+    initializeWhatsAppChat();
+    document.body.classList.add("show-whatsapp");
+}
+
+// Update the existing closeAllChats function to handle WhatsApp reset
+function closeAllChats() {
+    document.body.classList.remove("show-modal", "show-whatsapp", "show-bot", "show-chatbot");
+    if (messageInput) {
+        messageInput.style.height = "auto"; // Reset height without adding a default message
+    }
+}
+
+// Event Listeners
+// const whatsappOption = document.querySelector(".whatsapp-link");
+whatsappOption?.addEventListener("click", openWhatsAppChat);
+
+// Initialize the chat on page load
+initializeWhatsAppChat();
