@@ -563,8 +563,6 @@ header h2 {
   }
 }
 
-/* ... Rest of your existing chatbot styles ... */
-
 /* Show Elements */
 body.show-modal .chat-modal {
   display: flex;
@@ -582,7 +580,7 @@ body.show-bot .chatbot {
 @media (max-width: 490px) {
   .chat-toggler {
       right: 20px;
-      bottom: 20px;
+      bottom: 120px;
   }
 
   .whatsapp-chat,
