@@ -112,7 +112,7 @@ body.show-modal .chat-toggler span:last-child {
 }
 
 .modal-content {
-  background: white;
+  background-color: var(--chat-bg);
   padding: 2rem;
   border-radius: 12px;
   width: 90%;
