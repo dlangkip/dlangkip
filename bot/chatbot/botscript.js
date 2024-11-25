@@ -29,7 +29,7 @@ function toggleModal() {
 function closeAllChats() {
     document.body.classList.remove("show-modal", "show-whatsapp", "show-bot", "show-chatbot");
     if (messageInput) {
-        messageInput.style.height = "auto"; // Reset WhatsApp input field height
+        messageInput.style.height = "45px"; // Reset WhatsApp input field height
     }
 }
 
@@ -59,7 +59,7 @@ function initializeWhatsAppChat() {
 }
 
 function autoResizeTextArea() {
-    messageInput.style.height = "auto";
+    messageInput.style.height = "45px";
     messageInput.style.height = messageInput.scrollHeight + "px";
 }
 
@@ -129,7 +129,7 @@ function handleChat() {
 
     // Clear the input textarea and set its height to default
     chatInput.value = "";
-    chatInput.style.height = `${inputInitHeight}px`;
+    chatInput.style.height = "45px";
 
     // Append the user's message to the chatbox
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));
