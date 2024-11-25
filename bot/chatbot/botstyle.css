@@ -1,4 +1,5 @@
 :root {
+  /* Color Palette */
   --primary-bg: #075E54;
   --secondary-bg: #25D366;
   --chat-bg: #efeae2;
@@ -9,6 +10,7 @@
   --modal-bg: rgba(0, 0, 0, 0.5);
 }
 
+/* Reset and Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -21,7 +23,7 @@ body {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAG1BMVEVHcEzf3+Df3+Df3+Df3+Df3+Df3+Df3+Df3+Bem9QqAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAN0lEQVQ4jWNgQAX8/Ags7KGAMYIBp1J0AQ5XR2dgYmBgEIQJ8ECAACwsKMDAABf4j58YSQUMDACvzR4pxwwkWwAAAABJRU5ErkJggg==");
 }
 
-/* Chat Toggle Button */
+/* Chat Toggler Button */
 .chat-toggler {
   position: fixed;
   bottom: 120px;
@@ -42,16 +44,19 @@ body {
 }
 
 .chat-toggler:hover {
-  background: var(--secondary-bg-hover, #43b873); /* Fallback hover color */
+  background: #43b873;
   transform: scale(1.1);
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Tooltip styling */
+.chat-toggler:focus {
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
 .chat-toggler::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 80px; /* Adjust as needed */
+  bottom: 80px;
   right: 50%;
   transform: translateX(50%);
   background-color: rgba(0, 0, 0, 0.8);
@@ -67,20 +72,6 @@ body {
 
 .chat-toggler:hover::after {
   opacity: 1;
-}
-
-
-.chat-toggler:focus {
-  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5); /* Accessible focus ring */
-}
-
-@media (max-width: 768px) {
-  .chat-toggler {
-    height: 50px;
-    width: 50px;
-    bottom: 80px;
-    right: 20px;
-  }
 }
 
 .chat-toggler span {
@@ -305,7 +296,8 @@ body.show-modal .chat-toggler span:last-child {
   background: #fff;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z'/%3E%3C/svg%3E") no-repeat center;
 }
-/* AI Chatbot Styles (Existing styles from your bot.css) */
+
+/* Chatbot Styles */
 .chatbot {
   position: fixed;
   right: 35px;
@@ -320,30 +312,6 @@ body.show-modal .chat-toggler span:last-child {
   z-index: 1002;
 }
 
-:root {
-  /* Color Palette */
-  --primary-bg: #075E54;
-  --secondary-bg: #25D366;
-  --chat-bg: #efeae2;
-  --incoming-msg-bg: #fff;
-  --outgoing-msg-bg: #dcf8c6;
-  --text-color: #000;
-  --accent-color: #128C7E;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-
-body {
-  background: #eae6df;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAG1BMVEVHcEzf3+Df3+Df3+Df3+Df3+Df3+Df3+Df3+Bem9QqAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAN0lEQVQ4jWNgQAX8/Ags7KGAMYIBp1J0AQ5XR2dgYmBgEIQJ8ECAACwsKMDAABf4j58YSQUMDACvzR4pxwwkWwAAAABJRU5ErkJggg==");
-}
-
-/* Chatbot button */
 .chatbot-toggler {
   position: fixed;
   bottom: 120px;
@@ -365,25 +333,6 @@ body {
 
 .chatbot-toggler:hover {
   transform: scale(1.1) rotate(10deg);
-}
-
-/* Chatbot container */
-.chatbot {
-  position: fixed;
-  right: 35px;
-  bottom: 90px;
-  width: 420px;
-  max-width: 100%;
-  background: #fff;
-  border-radius: 6px;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(0.5);
-  transform-origin: bottom right;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  z-index: 9999;
 }
 
 @keyframes chatbotSlideIn {
@@ -416,6 +365,7 @@ body.show-chatbot .chatbot {
   align-items: center;
 }
 
+
 .chatbot header .close-btn {
   cursor: pointer;
   color: #fff;
@@ -428,7 +378,7 @@ body.show-chatbot .chatbot {
   opacity: 1;
 }
 
-header h2 {
+.chatbot header h2 {
   font-size: 1.1rem;
   font-weight: 500;
 }
@@ -479,7 +429,6 @@ header h2 {
   border-bottom-right-radius: 20px;
 }
 
-/* Input field */
 .chatbot footer {
   padding: 10px;
   display: flex;
