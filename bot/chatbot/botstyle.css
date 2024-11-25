@@ -8,7 +8,13 @@
   --text-color: #000;
   --accent-color: #128C7E;
   --modal-bg: rgba(0, 0, 0, 0.5);
-}
+  --whatsapp-green: #25D366;
+  --whatsapp-dark-green: #075E54;
+  --chat-bg-light: #ECE5DD;
+  --message-bg-incoming: #FFFFFF;
+  --message-bg-outgoing: #DCF8C6;
+  --text-primary: #000000;
+  --text-secondary: #808080;}
 
 /* Reset and Base Styles */
 * {
@@ -134,6 +140,15 @@ body.show-modal .chat-toggler span:last-child {
   font-size: 1rem;
   transition: all 0.3s ease;
 }
+
+.chat-modal .chat-options .whatsapp-option i.fab.fa-whatsapp {
+  font-size: 30px; 
+}
+
+.chat-modal .chat-options .bot-option i.fas.fa-robot {
+  font-size: 30px; 
+}
+
 
 .whatsapp-option {
   background: var(--secondary-bg);
@@ -501,6 +516,12 @@ body.show-chatbot .chatbot {
   margin: 0 10px 7px 0;
 }
 
+.chatbox .chat.incoming i.fas.fa-robot {
+  font-size: 30px; /* Adjust the size as needed */
+  color: #05301c;  /* Replace with your desired color */
+}
+
+
 .chatbox .chat p {
   white-space: pre-wrap;
   padding: 12px 16px;
@@ -547,25 +568,29 @@ body.show-chatbot .chatbot {
 }
 
 .chat-input textarea {
-  height: auto; /* Let it adjust automatically */
-  min-height: 45px; /* Ensure a visible default height */
-  max-height: 180px; /* Prevent it from growing too large */
+  height: auto;
+  min-height: 45px; 
+  max-height: 180px;
   width: 100%;
   border: 1px solid #ddd;
   outline: none;
   resize: none;
   padding: 12px 16px;
-  font-size: 0.95rem;
-  background: #fff;
-  border-radius: 20px;
-  transition: all 0.2s ease;
-  overflow-y: auto; /* Add a scrollbar if needed */
+  font-size: 1rem; 
+  line-height: 1.5; 
+  background: #f9f9f9; 
+  border-radius: 12px; 
+  transition: all 0.3s ease; 
+  overflow-y: auto; 
+  box-sizing: border-box; 
 }
 
 .chat-input textarea:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 2px rgba(18, 140, 126, 0.2);
+  border-color: var(--accent-color); 
+  box-shadow: 0 0 8px rgba(18, 140, 126, 0.3); 
+  background-color: #fff; 
 }
+
 
 .chat-input span {
   align-self: flex-end;
