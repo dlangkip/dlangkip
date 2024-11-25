@@ -3,7 +3,6 @@ const chatToggler = document.querySelector(".chat-toggler");
 const chatModal = document.querySelector(".chat-modal");
 const whatsappOption = document.querySelector(".whatsapp-option");
 const botOption = document.querySelector(".bot-option");
-const whatsappChat = document.querySelector(".whatsapp-chat");
 const closeButtons = document.querySelectorAll(".close-chat");
 
 // Chatbot Elements
@@ -17,6 +16,11 @@ let inputInitHeight;
 const API_KEY = "AIzaSyAZq21x018PledvppB7oPKtiIa1RvPNWVY";
 const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${API_KEY}`;
 
+// WhatsApp configuration
+const WHATSAPP_NUMBER = "+254700760386";
+const messageInput = document.querySelector("#messageInput");
+const whatsappButton = document.querySelector(".whatsapp-link");
+
 // Toggle Functions
 function toggleModal() {
     document.body.classList.toggle("show-modal");
@@ -24,10 +28,14 @@ function toggleModal() {
 
 function closeAllChats() {
     document.body.classList.remove("show-modal", "show-whatsapp", "show-bot", "show-chatbot");
+    if (messageInput) {
+        messageInput.style.height = "auto"; // Reset WhatsApp input field height
+    }
 }
 
 function openWhatsAppChat() {
     closeAllChats();
+    initializeWhatsAppChat();
     document.body.classList.add("show-whatsapp");
 }
 
@@ -37,8 +45,7 @@ function openBotChat() {
     document.body.classList.add("show-bot", "show-chatbot");
 }
 
-
-
+// Initialize Chatbot
 function initializeChatbot() {
     // Initialize chatbot elements
     chatbox = document.querySelector(".chatbox");
@@ -62,6 +69,7 @@ function initializeChatbot() {
     closeBtn.addEventListener("click", closeAllChats);
 }
 
+// Chat handling functions
 const createChatLi = (message, className) => {
     const chatLi = document.createElement("li");
     chatLi.classList.add("chat", `${className}`);
@@ -78,7 +86,6 @@ const createChatLi = (message, className) => {
     return chatLi;
 };
 
-    
 const generateResponse = async (chatElement) => {
     const messageElement = chatElement.querySelector("p");
 
@@ -99,7 +106,8 @@ const generateResponse = async (chatElement) => {
         if (!response.ok) throw new Error(data.error?.message || 'Something went wrong');
 
         messageElement.textContent = data.candidates[0].content.parts[0].text
-            .replace(/\*\*(.*?)\*\*/g, "$1");
+            .replace(/\*\*(.*?)\*\*/g, "$1"); // Strip markdown (bold)
+
     } catch (error) {
         messageElement.classList.add("error");
         messageElement.textContent = error.message;
@@ -145,36 +153,7 @@ function setupChatEventListeners() {
     sendChatBtn.addEventListener("click", handleChat);
 }
 
-// Event Listeners
-chatToggler?.addEventListener("click", toggleModal);
-whatsappOption?.addEventListener("click", openWhatsAppChat);
-botOption?.addEventListener("click", openBotChat);
-closeButtons?.forEach(button => {
-    button.addEventListener("click", closeAllChats);
-});
-
-// Close modal when clicking outside
-chatModal?.addEventListener("click", (e) => {
-    if (e.target === chatModal) {
-        closeAllChats();
-    }
-});
-
-// Handle escape key
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-        closeAllChats();
-    }
-});
-
-
-// WhatsApp configuration
-const WHATSAPP_NUMBER = "+254700760386";
-
-// WhatsApp Elements
-const messageInput = document.querySelector("#messageInput");
-const whatsappButton = document.querySelector(".whatsapp-link");
-
+// WhatsApp Chat initialization
 function initializeWhatsAppChat() {
     // Setup WhatsApp button
     if (whatsappButton) {
@@ -212,23 +191,27 @@ function sendWhatsAppMessage() {
     }
 }
 
-function openWhatsAppChat() {
-    closeAllChats();
-    initializeWhatsAppChat();
-    document.body.classList.add("show-whatsapp");
-}
-
-// Update the existing closeAllChats function to handle WhatsApp reset
-function closeAllChats() {
-    document.body.classList.remove("show-modal", "show-whatsapp", "show-bot", "show-chatbot");
-    if (messageInput) {
-        messageInput.style.height = "auto"; // Reset height without adding a default message
-    }
-}
-
 // Event Listeners
-// const whatsappOption = document.querySelector(".whatsapp-link");
+chatToggler?.addEventListener("click", toggleModal);
 whatsappOption?.addEventListener("click", openWhatsAppChat);
+botOption?.addEventListener("click", openBotChat);
+closeButtons?.forEach(button => {
+    button.addEventListener("click", closeAllChats);
+});
+
+// Close modal when clicking outside
+chatModal?.addEventListener("click", (e) => {
+    if (e.target === chatModal) {
+        closeAllChats();
+    }
+});
+
+// Handle escape key
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        closeAllChats();
+    }
+});
 
 // Initialize the chat on page load
 initializeWhatsAppChat();
