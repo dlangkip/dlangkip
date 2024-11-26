@@ -195,3 +195,27 @@
   });
 
 })();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const downloadBtn = document.getElementById('resumeDownloadBtn');
+
+  downloadBtn.addEventListener('click', (e) => {
+      // Create ripple effect
+      const ripple = document.createElement('span');
+      ripple.classList.add('ripple');
+      
+      // Position ripple at click location
+      const x = e.clientX - e.target.offsetLeft;
+      const y = e.clientY - e.target.offsetTop;
+      
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      
+      downloadBtn.appendChild(ripple);
+      
+      // Remove ripple after animation
+      setTimeout(() => {
+          ripple.remove();
+      }, 600);
+  });
+});
