@@ -6,7 +6,7 @@ Software Developer | Data Analyst | Web Developer
 
 * 🌍  I'm based in Nairobi, Kenya
 * 🖥️  See my portfolio at [Portfolio](http://dlang.benfex.net)
-* ✉️  You can contact me at [amoskiprotich1130@gmail.com](mailto:amoskiprotich1130@gmail.com)
+* ✉️  You can contact me at [dlang@benfex.net](mailto:dlang@benfex.net)
 * 🚀  I'm currently working on [BenFex Softwares](https://benfex.net)
 
 
